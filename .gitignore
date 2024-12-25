@@ -1,0 +1,39 @@
+# Airflow
+.env
+google-credentials.json
+logs/
+*.log
+airflow.db
+gcp_credentials.json
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.tfplan
+terraform.tfstate.backup
+.terraform.lock.hcl
+crash.log
+
+# JetBrains
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Editor backups
+*~
+.*.swp
+
+# Docker
+.env.docker
+docker-compose.override.yml
