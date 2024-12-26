@@ -6,14 +6,14 @@ provider "google" {
 
 resource "google_storage_bucket" "batch_amazon_bucket" {
   name          = var.gcs_bucket_name
-  location      = "US"
+  location      = var.region
   storage_class = "STANDARD"
 }
 
 resource "google_bigquery_dataset" "kindle_reviews_dataset" {
   dataset_id = "kindle_reviews_dataset"
   project    = var.gcp_project_id
-  location   = "US"
+  location   = var.region
   description = "Dataset for storing Kindle reviews"
   labels = {
     environment = "dev"
@@ -30,4 +30,5 @@ variable "gcs_bucket_name" {
 
 variable "region" {
   description = "Google Cloud region"
+  default     = "us-east2"
 }
