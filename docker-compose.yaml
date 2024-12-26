@@ -20,7 +20,6 @@ services:
       - ./gcp_credentials.json:/opt/airflow/gcp_credentials.json
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
-      - ./.env:/opt/airflow/.env
     command: >
       bash -c "
       airflow db upgrade &&
@@ -65,6 +64,17 @@ services:
     image: redis:latest
     container_name: redis
     restart: always
+
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-bigquery:latest
+    container_name: dbt
+    restart: always
+    volumes:
+      - ./dbt:/usr/app/dbt  # Mount the dbt project directory
+      - ./gcp_credentials.json:/usr/app/dbt/gcp_credentials.json  # Mount credentials for BigQuery
+    working_dir: /usr/app/dbt
+    entrypoint: [ "tail", "-f", "/dev/null" ]
+
 
 volumes:
   postgres_data:
