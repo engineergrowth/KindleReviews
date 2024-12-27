@@ -11,6 +11,6 @@ variable "region" {
   default     = "us-east2"
 }
 
-variable "bq_dataset_id" {
+variable "BQ_DATASET_NAME" {
   description = "BigQuery dataset ID"
 }

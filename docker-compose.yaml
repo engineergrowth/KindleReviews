@@ -83,7 +83,7 @@ services:
     entrypoint: [ "sleep", "infinity" ]
     environment:
       - GCP_PROJECT_ID=${GCP_PROJECT_ID}
-      - BQ_DATASET_ID=${BQ_DATASET_ID}
+      - BQ_DATASET_NAME=${BQ_DATASET_NAME}
 
 volumes:
   postgres_data:

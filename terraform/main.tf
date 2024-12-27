@@ -5,7 +5,7 @@ resource "google_storage_bucket" "storage_bucket" {
 }
 
 resource "google_bigquery_dataset" "reviews_dataset" {
-  dataset_id  = var.bq_dataset_id
+  dataset_id  = var.BQ_DATASET_NAME
   project     = var.gcp_project_id
   location    = var.region
   description = "Dataset for storing Kindle reviews"
