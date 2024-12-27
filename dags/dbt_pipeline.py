@@ -19,6 +19,9 @@ with DAG(
     dbt_run_all = BashOperator(
         task_id="dbt_run_all",
         bash_command="""
-            docker exec dbt dbt run --profiles-dir /usr/app/dbt --target dev
+        docker exec \
+        -e BQ_PROJECT_ID={{ var.value.BQ_PROJECT_ID }} \
+        -e BQ_DATASET_NAME={{ var.value.BQ_DATASET_NAME }} \
+        dbt dbt run --profiles-dir /usr/app/dbt --target dev
         """,
     )

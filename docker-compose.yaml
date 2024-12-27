@@ -80,10 +80,10 @@ services:
       - ./dbt:/usr/app/dbt
       - ./gcp_credentials.json:/usr/app/dbt/gcp_credentials.json
     working_dir: /usr/app/dbt
-    entrypoint: [ "tail", "-f", "/dev/null" ]
+    entrypoint: [ "sleep", "infinity" ]
     environment:
-      - BQ_PROJECT_ID=batch-amazon
-      - BQ_DATASET_NAME=kindle_reviews_dataset
+      - GCP_PROJECT_ID=${GCP_PROJECT_ID}
+      - BQ_DATASET_ID=${BQ_DATASET_ID}
 
 volumes:
   postgres_data:
