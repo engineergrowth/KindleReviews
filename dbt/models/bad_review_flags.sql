@@ -11,7 +11,7 @@ WITH recent_reviews AS (
     FROM
         `{{ target.project }}.{{ target.dataset }}.kindle_reviews`
     WHERE
-        review_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+        PARSE_DATE('%m %d, %Y', reviewTime) >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
     GROUP BY
         asin
 ),
@@ -35,6 +35,6 @@ FROM
     flagged_products
 WHERE
     total_reviews >= 10
-    AND negative_review_percentage >= 30  -- Flag products with >=30% negative reviews
+    AND negative_review_percentage >= 30
 ORDER BY
-    negative_review_percentage DESC;
+    negative_review_percentage DESC

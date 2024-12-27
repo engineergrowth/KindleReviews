@@ -10,8 +10,8 @@ SELECT
 FROM
     `{{ target.project }}.{{ target.dataset }}.kindle_reviews`
 WHERE
-    review_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)
+    PARSE_DATE('%m %d, %Y', reviewTime) >= DATE_SUB(CURRENT_DATE(), INTERVAL 7 DAY)
 GROUP BY
     asin
 ORDER BY
-    review_count_last_week DESC;
+    review_count_last_week DESC

@@ -16,8 +16,9 @@ with DAG(
     start_date=datetime(2024, 1, 1),
     catchup=False,
 ) as dag:
-
     dbt_run_all = BashOperator(
         task_id="dbt_run_all",
-        bash_command="docker exec dbt dbt run",
+        bash_command="""
+            docker exec dbt dbt run --profiles-dir /usr/app/dbt --target dev
+        """,
     )

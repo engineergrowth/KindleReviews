@@ -10,3 +10,7 @@ variable "region" {
   description = "Google Cloud region"
   default     = "us-east2"
 }
+
+variable "bq_dataset_id" {
+  description = "BigQuery dataset ID"
+}

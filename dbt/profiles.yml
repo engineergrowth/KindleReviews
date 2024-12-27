@@ -1,0 +1,10 @@
+kindle_reviews_project:
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: "{{ env_var('BQ_PROJECT_ID') }}"
+      dataset: "{{ env_var('BQ_DATASET_NAME') }}"
+      threads: 4
+      keyfile: /usr/app/dbt/gcp_credentials.json
+  target: dev

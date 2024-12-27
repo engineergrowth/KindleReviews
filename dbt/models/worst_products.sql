@@ -14,4 +14,4 @@ GROUP BY
 HAVING
     total_reviews >= 5
 ORDER BY
-    avg_rating ASC;
+    avg_rating ASC
