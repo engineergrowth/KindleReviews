@@ -106,6 +106,7 @@ flowchart TD
 - GCP account with a service account key.
 - AWS S3 bucket and credentials.
 - Apache Airflow configured locally or via Docker Compose.
+- The dataset uploaded to the s3 bucket:  https://www.kaggle.com/datasets/bharadwaj6/kindle-reviews
 
 ### Installation
 
