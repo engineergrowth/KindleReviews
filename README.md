@@ -116,14 +116,34 @@ git clone https://github.com/engineergrowth/KindleReviews
 cd KindleReviews
 ```
 
-2. **Set Up Environment Variables:**
-- Create an `.env` file and populate it with credentials:
-  ```
-  AWS_BUCKET_NAME=<your-s3-bucket>
-  GCS_BUCKET_NAME=<your-gcs-bucket>
-  BQ_PROJECT_ID=<your-gcp-project-id>
-  BQ_DATASET_NAME=kindle_reviews_dataset
-  ```
+### Step 2: Set Up Environment Variables in Airflow
+
+To configure the pipeline, you need to set the following variables in the **Airflow UI**:
+
+1. Open the **Airflow UI** by visiting: [http://localhost:8080](http://localhost:8080).
+2. Log in using the default credentials:  
+   - Username: `admin`  
+   - Password: `admin`
+3. Navigate to **Admin > Variables** in the top menu.
+4. Add the following variables:
+   - **Key:** `AWS_BUCKET_NAME`  
+     **Value:** `<your-s3-bucket>`
+   - **Key:** `GCS_BUCKET_NAME`  
+     **Value:** `<your-gcs-bucket>`
+   - **Key:** `BQ_PROJECT_ID`  
+     **Value:** `<your-gcp-project-id>`
+   - **Key:** `BQ_DATASET_NAME`  
+     **Value:** `kindle_reviews_dataset`
+5. Save each variable.
+
+Alternatively, you can use the **Airflow CLI** to set these variables directly. Run the following commands in your terminal:
+
+```
+docker exec -it <airflow-webserver-container-name> airflow variables set AWS_BUCKET_NAME <your-s3-bucket>
+docker exec -it <airflow-webserver-container-name> airflow variables set GCS_BUCKET_NAME <your-gcs-bucket>
+docker exec -it <airflow-webserver-container-name> airflow variables set BQ_PROJECT_ID <your-gcp-project-id>
+docker exec -it <airflow-webserver-container-name> airflow variables set BQ_DATASET_NAME kindle_reviews_dataset
+```
 
 3. **Launch the Pipeline:**
 
