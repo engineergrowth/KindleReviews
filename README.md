@@ -119,7 +119,6 @@ cd KindleReviews
 ### 2. Set Up Environment Variables in Airflow
 To configure the pipeline, you'll need to set the environment variables directly in Airflow. You can do this through the Airflow UI or CLI:
 
-### Option A: Use the Airflow UI
 1. Access the Airflow UI by navigating to [http://localhost:8080](http://localhost:8080).
 2. Log in with the default credentials:
     - **Username:** admin
