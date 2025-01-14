@@ -99,67 +99,53 @@ flowchart TD
 
 ---
 
-## Getting Started
+## Installation Guide
 
 ### Prerequisites
+Before you begin, ensure you have the following:
+
 - Docker and Docker Compose installed.
-- GCP account with a service account key.
-- AWS S3 bucket and credentials.
-- Apache Airflow configured locally or via Docker Compose.
-- The dataset uploaded to the s3 bucket:  https://www.kaggle.com/datasets/bharadwaj6/kindle-reviews
+- A GCP account with a service account key.
+- An AWS S3 bucket and corresponding credentials.
+- The dataset uploaded to the S3 bucket. You can download it from this link.
+- Python installed for local testing (if necessary).
 
-### Installation
+### 1. Clone the Repository
+Clone the repository and navigate to the project directory:
 
-1. **Clone the Repository:**
-```
-git clone https://github.com/engineergrowth/KindleReviews 
+git clone https://github.com/engineergrowth/KindleReviews  
 cd KindleReviews
-```
 
-### Step 2: Set Up Environment Variables in Airflow
+### 2. Set Up Environment Variables in Airflow
+To configure the pipeline, you'll need to set the environment variables directly in Airflow. You can do this through the Airflow UI or CLI:
 
-To configure the pipeline, you need to set the following variables in the **Airflow UI**:
+### Option A: Use the Airflow UI
+1. Access the Airflow UI by navigating to [http://localhost:8080](http://localhost:8080).
+2. Log in with the default credentials:
+    - **Username:** admin
+    - **Password:** admin
+3. Navigate to **Admin > Variables** and add the following variables:
+    - `AWS_BUCKET_NAME` - `<your-s3-bucket>`
+    - `GCS_BUCKET_NAME` - `<your-gcs-bucket>`
+    - `BQ_PROJECT_ID` - `<your-gcp-project-id>`
+    - `BQ_DATASET_NAME` - `kindle_reviews_dataset`
+    - `RAW_FILE_NAME` - `<your-file-name.csv>`
+    - `LOCAL_RAW_PATH` - `/opt/airflow/data/raw_data.csv`
+    - `LOCAL_PARQUET_PATH` - `/opt/airflow/data/parquet_files`
+    - `FERNET_KEY` - `<your-fernet-key>`
 
-1. Open the **Airflow UI** by visiting: [http://localhost:8080](http://localhost:8080).
-2. Log in using the default credentials:  
-   - Username: `admin`  
-   - Password: `admin`
-3. Navigate to **Admin > Variables** in the top menu.
-4. Add the following variables:
-   - **Key:** `AWS_BUCKET_NAME`  
-     **Value:** `<your-s3-bucket>`
-   - **Key:** `GCS_BUCKET_NAME`  
-     **Value:** `<your-gcs-bucket>`
-   - **Key:** `BQ_PROJECT_ID`  
-     **Value:** `<your-gcp-project-id>`
-   - **Key:** `BQ_DATASET_NAME`  
-     **Value:** `kindle_reviews_dataset`
-5. Save each variable.
 
-Alternatively, you can use the **Airflow CLI** to set these variables directly. Run the following commands in your terminal:
+### 3. Start the Pipeline
+Launch the services using Docker Compose:
 
-```
-docker exec -it <airflow-webserver-container-name> airflow variables set AWS_BUCKET_NAME <your-s3-bucket>
-docker exec -it <airflow-webserver-container-name> airflow variables set GCS_BUCKET_NAME <your-gcs-bucket>
-docker exec -it <airflow-webserver-container-name> airflow variables set BQ_PROJECT_ID <your-gcp-project-id>
-docker exec -it <airflow-webserver-container-name> airflow variables set BQ_DATASET_NAME kindle_reviews_dataset
-```
-
-3. **Launch the Pipeline:**
-
-```
 docker-compose up -d
-```
+
+### 4. Access the Airflow UI
+Once the services are running, access the Airflow UI:
+
+1. Navigate to [http://localhost:8080](http://localhost:8080).
+2. Log in with the credentials:
+    - **Username:** admin
+    - **Password:** admin
 
 
-4. **Access Airflow UI:**
-- Open [http://localhost:8080](http://localhost:8080)
-- Use the default login: `admin` / `admin`
-
----
-
-## Future Enhancements
-
-- Add additional Airflow DAGs for data partitioning 
-- Incorporate real-time analytics and monitoring features.
-- Implement CI/CD pipelines
