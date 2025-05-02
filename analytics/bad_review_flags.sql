@@ -1,19 +1,18 @@
-{{ config(
-    materialized='incremental',
-    unique_key='asin'
-) }}
-
 WITH recent_reviews AS (
     SELECT
-        asin,
-        COUNT(*) AS total_reviews,
-        COUNTIF(overall <= 2) AS negative_reviews
+        dp.asin,
+        COUNT(rf.review_id) AS total_reviews,
+        COUNTIF(rf.overall_rating <= 2) AS negative_reviews
     FROM
-        `{{ target.project }}.{{ target.dataset }}.kindle_reviews`
+        review_facts rf
+    JOIN
+        dim_product dp ON rf.asin_key = dp.asin_key
+    JOIN
+        dim_time dt ON rf.time_key = dt.time_key
     WHERE
-        PARSE_DATE('%m %d, %Y', reviewTime) >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
+        DATE(FROM_UNIXTIME(dt.unixReviewTime)) >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)  
     GROUP BY
-        asin
+        dp.asin
 ),
 
 flagged_products AS (
